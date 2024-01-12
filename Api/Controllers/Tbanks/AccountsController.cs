@@ -25,7 +25,7 @@ namespace Api.Controllers.Tbanks
 
 
         [HttpPost]
-        [Route("AuthenticateToken")]
+        [Route("AuthenticateToke")]
         public async Task<ActionResult<AccountViewModel>> Authenticate([FromBody] UserViewModel AccountTokenViewModel )
         {
             if (!ModelState.IsValid) return BadRequest();
