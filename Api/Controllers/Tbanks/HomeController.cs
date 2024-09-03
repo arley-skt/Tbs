@@ -1,0 +1,54 @@
+﻿using Api.ViewModel;
+using Data.home;
+using Microsoft.AspNetCore.Mvc;
+
+namespace Api.Controllers.Tbanks
+{
+    public class HomeController : Controller
+    {
+        [HttpPost]
+        [Route("buscarpessoacpf")]
+        public async Task<ActionResult<string>> buscarpessoacpf([FromBody] string cpf)
+        {
+            var pessoaencontrada = new usuario();
+            var fatura = new Fatura();
+
+            if (!ModelState.IsValid) 
+                return BadRequest();
+            var msg = "";
+            var validacao = pessoaencontrada.validausurrio(cpf);
+
+
+            var instanciaclientepessoafisica = new clientepessoafisica();
+
+            var lista= instanciaclientepessoafisica.buscarpessoafisicalistadotodos();
+
+            var posica5 = lista[4];
+
+            var posicaopornome = lista.Where(x=>x.nome=="joao").FirstOrDefault();
+
+            if (validacao)
+            {
+                var clienteenctradonobanco = pessoaencontrada.bucarnobancodadosusuario(cpf);
+                var valorfaturado = fatura.buscartotal(clienteenctradonobanco.cpf.ToString());
+
+                if (msg == "")
+                {
+                    msg = "Senhor(a)" +clienteenctradonobanco.nome+ " total da sua fatura é: "+valorfaturado;
+                }
+                else
+                {
+                    msg = "invalido";
+                }
+            }
+            else
+            {
+                 msg = "usuario invalido";
+            }
+
+           // var Tok = new AccountTokenViewModel { Token = Guid.NewGuid(), TokenRefresh = Guid.NewGuid() };
+
+            return Ok(msg);
+        }
+    }
+}

@@ -4,6 +4,7 @@ using Data.Domain;
 using Data.Interface;
 using Data.Repository;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -33,7 +34,7 @@ namespace Api.Controllers.Tbanks
             return Ok();
         }
 
-        [HttpGet("{Nome}")]
+        [HttpGet("create/{Nome}")]
         public async Task<ActionResult<PixOutViewModel>> Createpaymentorder(string Nome)
         {
             //var fornecedor = _mapper.Map<FornecedorViewModel>(await _pixOutRepository.ObterPorNome(Nome));
@@ -49,6 +50,7 @@ namespace Api.Controllers.Tbanks
         {
             if (!ModelState.IsValid) return BadRequest();
 
+         
             var Balance = _mapper.Map<PixOutViewModel>(await _pixOutRepository.Adicionar(_mapper.Map<Fornecedor>(balanceViewModel)));
 
             return balanceViewModel;
