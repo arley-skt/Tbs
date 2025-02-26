@@ -38,7 +38,7 @@ namespace Api.Controllers.Tbanks
                 }
                 else
                 {
-                    msg = "invalido";
+                    msg = "invalido1";
                 }
             }
             else
