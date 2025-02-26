@@ -50,5 +50,20 @@ namespace Api.Controllers.Tbanks
 
             return Ok(msg);
         }
+
+        [HttpPost]
+        [Route("buscarloja")]
+        public async Task<ActionResult<string>> buscarloja ([FromBody] string carregador, string fone, string celular)
+        {
+            var msg = "";
+            var brasil = new Manipulador();
+            var novaloja = brasil.criadordeloja(celular, fone, carregador);
+
+
+            msg = brasil.retornarcelularecarregador(celular,carregador);
+
+            return Ok(msg);
+
+        }
     }
 }
