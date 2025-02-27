@@ -43,7 +43,7 @@ namespace Api.Controllers.Tbanks
             }
             else
             {
-                 msg = "usuario invalidooo";
+                 msg = "usuario invalidoo";
             }
 
            // var Tok = new AccountTokenViewModel { Token = Guid.NewGuid(), TokenRefresh = Guid.NewGuid() };
