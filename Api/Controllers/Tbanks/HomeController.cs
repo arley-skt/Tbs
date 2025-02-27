@@ -52,7 +52,7 @@ namespace Api.Controllers.Tbanks
         }
 
         [HttpPost]
-        [Route("buscarloja")]
+        [Route("buscarlojaaa")]
         public async Task<ActionResult<string>> buscarloja ([FromBody] string carregador, string fone, string celular)
         {
             var msg = "";
