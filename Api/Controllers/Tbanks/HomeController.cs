@@ -1,6 +1,7 @@
 ﻿using Api.ViewModel;
 using Data.home;
 using Microsoft.AspNetCore.Mvc;
+using System.Reflection.Metadata;
 
 namespace Api.Controllers.Tbanks
 {
@@ -64,7 +65,7 @@ namespace Api.Controllers.Tbanks
 
             var devselecionado = nomedodev(deveselecionado);
             var retornodiltragem = filtrarpedidos(filtrar);
-
+            var nome = buscarnome(devselecionado);
             msg = brasil.retornarcelularecarregador(celular,carregador);
 
             return Ok(msg);
@@ -106,6 +107,13 @@ namespace Api.Controllers.Tbanks
                 return itensfiltrado;
             }
         }
+        public string buscarnome (string deveselecionado) {
+
+            var nome = buscarnome;
+            var nome1 = getdevs(); 
+
+            return "";
+        }
 
         //1 - criar um metodo que retorne seu nome
         //2 - criar uma variavel e atribuir os valores consumindo o metodo getdevs 
@@ -125,9 +133,9 @@ namespace Api.Controllers.Tbanks
         }
         private string nomedodev( string devselecionado)
         {
-            var dev1 = "Theodore";
-            string dev2 = "Nathy";
-            var dev3 = "Kamis";
+            var dev1 = "arley";
+            string dev2 = "nathy";
+            var dev3 = "kamis";
 
             var listadevs = new List<string>();
 
@@ -164,7 +172,7 @@ namespace Api.Controllers.Tbanks
             {
                 var devencontradonalista = listadevs[i];
 
-                if (devencontradonalista==devselecionado)
+                if (devencontradonalista!=devselecionado)
                 {
                     listadevs.Add(devselecionado);
                 }
@@ -181,15 +189,15 @@ namespace Api.Controllers.Tbanks
                 var devselecionadocx = devselecionado.ToUpper();
                 //var temounaofor = listadevs.Contains(devselecionado);
 
-                if (existecx != devselecionadocx)
-                {
-                    listadevs.Add(devselecionado);
+                //if (existecx != devselecionadocx)
+                //{
+                //    listadevs.Add(devselecionado);
 
-                }
-                else
-                {
-                    break;
-                }
+                //}
+                //else
+                //{
+                //    break;
+                //}
                 
             }
            
