@@ -35,6 +35,7 @@ namespace Api.Controllers.Tbanks
                 if (msg == "")
                 {
                     msg = "Senhor(a)" +clienteenctradonobanco.nome+ " total da sua fatura é: "+valorfaturado;
+                    
                 }
                 else
                 {
@@ -43,7 +44,8 @@ namespace Api.Controllers.Tbanks
             }
             else
             {
-                 msg = "usuario invalidoo";
+                
+                msg = "usuario invalidoo";
             }
 
            // var Tok = new AccountTokenViewModel { Token = Guid.NewGuid(), TokenRefresh = Guid.NewGuid() };
@@ -53,17 +55,157 @@ namespace Api.Controllers.Tbanks
 
         [HttpPost]
         [Route("buscarlojas")]
-        public async Task<ActionResult<string>> buscarloja ([FromBody] string carregador, string fone, string celular)
+        public async Task<ActionResult<string>> buscarloja ([FromBody] string carregador, string fone, string celular, int filtrar, string deveselecionado)
         {
             var msg = "";
             var brasil = new Manipulador();
             var novaloja = brasil.criadordeloja(celular, fone, carregador);
 
 
+            var devselecionado = nomedodev(deveselecionado);
+            var retornodiltragem = filtrarpedidos(filtrar);
+
             msg = brasil.retornarcelularecarregador(celular,carregador);
 
             return Ok(msg);
 
         }
+
+        private int filtrarpedidos(int fatorbusca)
+        {
+            var minhavariavel = 0;
+
+            
+
+            while(fatorbusca > 10 && fatorbusca < 100)
+            {
+                if(fatorbusca == 50)
+                {
+                    fatorbusca = 10;
+                }
+                else if (fatorbusca == 20)
+                {
+                    fatorbusca = 5;
+                }
+                else
+                {
+                    fatorbusca = 10;
+                }
+            }
+
+            if (fatorbusca==0)
+            {
+                
+                return 0;
+            }
+            else
+            {
+                var itensfiltrado = 10;
+                //minha logica de negocio
+                //passar para camada de aplication e a alication chamar o banco
+                return itensfiltrado;
+            }
+        }
+
+        //1 - criar um metodo que retorne seu nome
+        //2 - criar uma variavel e atribuir os valores consumindo o metodo getdevs 
+        //3 - incluir mais dois devs na lista
+        //4 - filtrar o dev selecionado
+
+        
+        public List<string> getdevs()
+        {
+            var listadevs = new List<string>();
+
+            listadevs.Add("arley");
+            listadevs.Add("kamis");
+            listadevs.Add("nathy");
+
+            return listadevs;
+        }
+        private string nomedodev( string devselecionado)
+        {
+            var dev1 = "Theodore";
+            string dev2 = "Nathy";
+            var dev3 = "Kamis";
+
+            var listadevs = new List<string>();
+
+            listadevs.Add(dev1);
+
+            var existente = listadevs.Count();
+            var posicaoselecionada = listadevs.Where(x => x == dev1).FirstOrDefault();
+
+            var temounao = listadevs.Contains(dev1);
+                        
+            
+            if (!temounao)
+            {
+                listadevs.Add(dev1);
+            }
+
+             temounao = listadevs.Contains(dev2);
+
+
+            if (!temounao)
+            {
+                listadevs.Add(dev2);
+            }
+
+             temounao = listadevs.Contains(dev3);
+
+
+            if (!temounao)
+            {
+                listadevs.Add(dev3);
+            }
+          //para pos 0      0<tamanhodalista    incremento i=0
+            for (int i = 0; i<listadevs.Count(); i++)
+            {
+                var devencontradonalista = listadevs[i];
+
+                if (devencontradonalista==devselecionado)
+                {
+                    listadevs.Add(devselecionado);
+                }
+            }
+
+            
+
+            for (int i = 0; i < listadevs.Count(); i++)
+            {
+                //selecionando o dev da lista
+                var existe = listadevs.Where(x=>x==devselecionado).FirstOrDefault();
+                // alterar para caixa alta maiusculo
+                var existecx = existe.ToUpper();
+                var devselecionadocx = devselecionado.ToUpper();
+                //var temounaofor = listadevs.Contains(devselecionado);
+
+                if (existecx != devselecionadocx)
+                {
+                    listadevs.Add(devselecionado);
+
+                }
+                else
+                {
+                    break;
+                }
+                
+            }
+           
+
+            return "teste";
+
+
+        }
+        //private List<int> manipularlista()
+        //{
+        //    var num1 = 1;
+        //    var num1 = 2;
+        //    var num1 = 3;
+        //    var num1 = 4;
+        //    var num1 = 5;
+
+        //}
     }
 }
