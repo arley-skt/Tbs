@@ -64,7 +64,7 @@ namespace Api.Controllers.Tbanks
 
             var devselecionado = nomedodev(deveselecionado);
             var retornodiltragem = filtrarpedidos(filtrar);
-
+            var minhavariavel = kamila(devselecionado);
             msg = brasil.retornarcelularecarregador(celular,carregador);
 
             return Ok(msg);
@@ -112,7 +112,12 @@ namespace Api.Controllers.Tbanks
         //3 - incluir mais dois devs na lista
         //4 - filtrar o dev selecionado
 
-        
+        public string kamila(string kamila) 
+        {
+
+            var lista1 = getdevs();
+            return "";
+        }
         public List<string> getdevs()
         {
             var listadevs = new List<string>();
@@ -125,9 +130,9 @@ namespace Api.Controllers.Tbanks
         }
         private string nomedodev( string devselecionado)
         {
-            var dev1 = "Theodore";
-            string dev2 = "Nathy";
-            var dev3 = "Kamis";
+            var dev1 = "arley";
+            string dev2 = "nathy";
+            var dev3 = "kamis";
 
             var listadevs = new List<string>();
 
@@ -164,7 +169,7 @@ namespace Api.Controllers.Tbanks
             {
                 var devencontradonalista = listadevs[i];
 
-                if (devencontradonalista==devselecionado)
+                if (devencontradonalista!=devselecionado)
                 {
                     listadevs.Add(devselecionado);
                 }
@@ -181,15 +186,15 @@ namespace Api.Controllers.Tbanks
                 var devselecionadocx = devselecionado.ToUpper();
                 //var temounaofor = listadevs.Contains(devselecionado);
 
-                if (existecx != devselecionadocx)
-                {
-                    listadevs.Add(devselecionado);
+                //if (existecx != devselecionadocx)
+                //{
+                //    listadevs.Add(devselecionado);
 
-                }
-                else
-                {
-                    break;
-                }
+                //}
+                //else
+                //{
+                //    break;
+                //}
                 
             }
            
