@@ -10,6 +10,8 @@ namespace Api.Controllers.Tbanks
         [Route("buscarpessoacpf")]
         public async Task<ActionResult<string>> buscarpessoacpf([FromBody] string cpf)
         {
+
+            var usandometodonome = getnomex();
             var pessoaencontrada = new usuario();
             var fatura = new Fatura();
 
@@ -55,14 +57,17 @@ namespace Api.Controllers.Tbanks
 
         [HttpPost]
         [Route("buscarlojas")]
-        public async Task<ActionResult<string>> buscarloja ([FromBody] string carregador, string fone, string celular, int filtrar, string deveselecionado)
+        public async Task<ActionResult<string>> buscarloja ([FromBody] string carregador, string fone, string celular, int filtrar, string deveselecionado, int anonasc)
         {
             var msg = "";
             var brasil = new Manipulador();
             var novaloja = brasil.criadordeloja(celular, fone, carregador);
 
+            //consumindo meu método criado, chamar atraves do nomedometodocriado e com o parametro se houver
+            //var devselecionado = nomedodev(deveselecionado);
 
-            var devselecionado = nomedodev(deveselecionado);
+            var databuscada = retonaridade(anonasc);
+
             var retornodiltragem = filtrarpedidos(filtrar);
             var minhavariavel = kamila(devselecionado);
             msg = brasil.retornarcelularecarregador(celular,carregador);
@@ -128,17 +133,37 @@ namespace Api.Controllers.Tbanks
 
             return listadevs;
         }
+
+        //criando meu metodo com parametro
+        public int retonaridade(int datanasc)
+        {
+            var idade = 2025-datanasc;
+            return idade;
+
+        }
+
+        private string getnomex()
+        {
+            var nome = "X";
+
+            return nome;
+        }
+
+
+        //criando um novo metodo no caso o metodo nomedodev com o parametro do tipo string devselecionado
         private string nomedodev( string devselecionado)
         {
-            var dev1 = "arley";
+            var dev1 = "theodore";
             string dev2 = "nathy";
             var dev3 = "kamis";
 
+            //criando uma lista no caso instancia da lista
             var listadevs = new List<string>();
-
+            //adicionando valor a lista atraves da função .Add
             listadevs.Add(dev1);
 
             var existente = listadevs.Count();
+            //filtrando um valor da lista
             var posicaoselecionada = listadevs.Where(x => x == dev1).FirstOrDefault();
 
             var temounao = listadevs.Contains(dev1);
