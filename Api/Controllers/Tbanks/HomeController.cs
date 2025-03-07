@@ -91,6 +91,31 @@ namespace Api.Controllers.Tbanks
         }
 
         [HttpPost]
+        [Route("nathalia")]
+        public async Task<ActionResult<string>> nathalia([FromBody] minhaclas nvclas)
+
+        {
+            var novainstancia = new minhaclas(nvclas.num1, nvclas.num2, nvclas.num3, nvclas.num4);
+          
+
+            var resultadoaritmetico = novainstancia.calcularnum(nvclas.num1, nvclas.num2, nvclas.num3, nvclas.num4);
+
+            var mensagem = " a media calculada é " + resultadoaritmetico;
+            
+
+            
+
+            //01 criar uma rota nova que receba uma classe como parametro
+            //02 nessa classe nova criar as propriedades e um construtor para retornar uma instancia desse objeto
+            //03 criar um metodo que calcule a media aritmetica de 4 numeros dentro do passo 2
+            //04 a sua rota deve mostrar uma mensagem dizendo a media calculada 
+            //bonus a divisao e x / por qtd aritmetica
+
+
+            return Ok(mensagem);
+
+        }
+        [HttpPost]
         [Route("buscarlojas")]
         public async Task<ActionResult<string>> buscarloja ([FromBody] NovaCla nvClasse)
         {
