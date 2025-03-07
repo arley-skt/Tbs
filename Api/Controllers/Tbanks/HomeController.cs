@@ -70,10 +70,10 @@ namespace Api.Controllers.Tbanks
             var databuscada = retonaridade(anonasc);
 
             var retornodiltragem = filtrarpedidos(filtrar);
-            var nome = buscarnome(devselecionado);
+            var nome = buscarnome(deveselecionado);
             msg = brasil.retornarcelularecarregador(celular,carregador);
 
-            return Ok(msg);
+            return Ok(msg+nome);
 
         }
 
@@ -115,9 +115,16 @@ namespace Api.Controllers.Tbanks
         public string buscarnome (string deveselecionado) {
 
             var nome = buscarnome;
-            var nome1 = getdevs(); 
+            var nome1 = getdevs();
 
-            return "";
+            nome1.Add ("martelo");
+            nome1.Add("machado");
+
+            var nomeselecionado = nome1.Where(x => x == deveselecionado).FirstOrDefault();
+
+
+            return nomeselecionado;
+
         }
 
         //1 - criar um metodo que retorne seu nome
