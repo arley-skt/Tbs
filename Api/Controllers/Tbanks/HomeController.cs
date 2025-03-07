@@ -1,4 +1,5 @@
-﻿using Api.ViewModel;
+﻿using Api.Model;
+using Api.ViewModel;
 using Data.home;
 using Microsoft.AspNetCore.Mvc;
 
@@ -56,8 +57,8 @@ namespace Api.Controllers.Tbanks
         }
 
         [HttpPost]
-        [Route("buscarlojas")]
-        public async Task<ActionResult<string>> buscarloja ([FromBody] string carregador, string fone, string celular, int filtrar, string deveselecionado, int anonasc)
+        [Route("buscarnselecionado")]
+        public async Task<ActionResult<string>> buscarselecionado([FromBody] string carregador, string fone, string celular, int filtrar, string deveselecionado, int anonasc)
         {
             var msg = "";
             var brasil = new Manipulador();
@@ -69,10 +70,70 @@ namespace Api.Controllers.Tbanks
             var databuscada = retonaridade(anonasc);
 
             var retornodiltragem = filtrarpedidos(filtrar);
-            var minhavariavel = kamila(devselecionado);
-            msg = brasil.retornarcelularecarregador(celular,carregador);
 
-            return Ok(msg);
+            var minhavariavel = kamila(deveselecionado);
+
+            msg = brasil.retornarcelularecarregador(celular, carregador);
+
+            var mensagem = "";
+
+            if (minhavariavel == null)
+            {
+                mensagem = "Usuario não encontrado na lista";
+            }
+            else
+            {
+                mensagem = "este é o usuario filtrado " + minhavariavel;
+            }
+
+            return Ok(mensagem);
+
+        }
+
+        [HttpPost]
+        [Route("buscarlojas")]
+        public async Task<ActionResult<string>> buscarloja ([FromBody] NovaCla nvClasse)
+        {
+            var msg = "";
+            var brasil = new Manipulador();
+            var novaloja = brasil.criadordeloja(nvClasse.celular, nvClasse.fone, nvClasse.carregador);
+
+            //consumindo meu método criado, chamar atraves do nomedometodocriado e com o parametro se houver
+            //var devselecionado = nomedodev(deveselecionado);
+
+
+
+            nvClasse.carregador = "Carregadormotorola";
+
+
+            //vai ter que buscar uma instancia da nova classe no banco
+
+            //var nvclasseDb = ///meu codigo buscando la na camada de aplication e camada de infra.
+
+            var minhanovainstanciadoobjeto = new NovaCla("xiaomi","daredm","samg",50,"nathy",2000);
+
+            
+         
+
+
+            var databuscada = retonaridade(nvClasse.anonasc);
+
+            var retornodiltragem = filtrarpedidos(nvClasse.filtrar);
+            var minhavariavel = kamila(nvClasse.deveselecionado);
+            msg = brasil.retornarcelularecarregador(nvClasse.celular, nvClasse.carregador);
+
+            var mensagem = "";
+
+            if (minhavariavel==null)
+            {
+                mensagem = "Usuario não encontrado na lista";
+            }
+            else
+            {
+                mensagem = "este é o usuario filtrado " + minhavariavel;
+            }
+            
+            return Ok(mensagem);
 
         }
 
@@ -116,12 +177,19 @@ namespace Api.Controllers.Tbanks
         //2 - criar uma variavel e atribuir os valores consumindo o metodo getdevs 
         //3 - incluir mais dois devs na lista
         //4 - filtrar o dev selecionado
+        //5 - retornar nome nao encontrado caso nao exista
 
         public string kamila(string kamila) 
         {
-
+            var novonome = "joao";
+            var novonome2 = "bia";
             var lista1 = getdevs();
-            return "";
+            lista1.Add(novonome);
+            lista1.Add(novonome2);
+
+            var posicaoselecionada = lista1.Where(x => x == kamila).FirstOrDefault();
+
+            return posicaoselecionada;
         }
         public List<string> getdevs()
         {
